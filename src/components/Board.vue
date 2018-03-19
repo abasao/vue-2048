@@ -1,5 +1,4 @@
 <template>
-<div class="cont">
     <div class="board" tabIndex="1">
         <div v-for="(cell_row, row) in board.cells" :key="row">
             <cell v-for="(cell, cell_index) in cell_row" :key="cell_index"></cell>
@@ -8,7 +7,6 @@
         </tile>
         <game-over :board="board" :onrestart="onRestart"></game-over>
     </div>
-</div>
 </template>
 
 <script>

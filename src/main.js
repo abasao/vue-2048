@@ -10,10 +10,7 @@ Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
   //vue hook for placement of template below
-  el: '#game', 
-  data(){
-    return {boardSize: 8}
-  },
+  el: '#game',
   components: { Board },
   //insert template into target element: el
   template: '<Board/>' 

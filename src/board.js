@@ -60,11 +60,11 @@ Tile.prototype.toColumn = function () {
 
 var Board = function (size = 4) {
     //Board.size = Board.size | 4;
-    Board.size = size;
+    this.size = size;
     this.tiles = [];
     this.cells = [];
-    for (var i = 0; i < Board.size; i++) {
-        this.cells[i] = Array(Board.size).fill(this.addTile());
+    for (var i = 0; i < this.size; i++) {
+        this.cells[i] = Array(this.size).fill(this.addTile());
     }
     this.addRandomTile();
     this.setPositions();
@@ -80,10 +80,10 @@ Board.prototype.addTile = function () {
 
 Board.prototype.moveLeft = function () {
     var hasChanged = false;
-    for (var row = 0; row < Board.size; ++row) {
+    for (var row = 0; row < this.size; ++row) {
         var currentRow = this.cells[row].filter(tile => tile.value !== 0);
-        var resultRow = Array(Board.size).fill(this.addTile());
-        for (var target = 0; target < Board.size; target++) {
+        var resultRow = Array(this.size).fill(this.addTile());
+        for (var target = 0; target < this.size; target++) {
             var targetTile = currentRow.length ? currentRow.shift() : false;
             if (currentRow.length > 0 && targetTile && currentRow[0].value === targetTile.value) {
                 targetTile.value *= 2;
@@ -114,8 +114,8 @@ Board.fourProbability = 0.1;
 
 Board.prototype.addRandomTile = function () {
     var emptyCells = [];
-    for (var r = 0; r < Board.size; r++) {
-        for (var c = 0; c < Board.size; c++) {
+    for (var r = 0; r < this.size; r++) {
+        for (var c = 0; c < this.size; c++) {
             if (this.cells[r][c].value === 0) {
                 emptyCells.push({ r: r, c: c });
             }
@@ -157,12 +157,12 @@ Board.deltaX = [-1, 0, 1, 0];
 Board.deltaY = [0, -1, 0, 1];
 Board.prototype.checkNeighbor = function () {
     var identicalNeightbor = false;
-    for (var row = 0; row < Board.size; row++) {
-        for (var column = 0; column < Board.size; column++) {
-            for (var dir = 0; dir < Board.size; dir++) {
+    for (var row = 0; row < this.size; row++) {
+        for (var column = 0; column < this.size; column++) {
+            for (var dir = 0; dir < this.size; dir++) {
                 var newRow = row + Board.deltaX[dir];
                 var newColumn = column + Board.deltaY[dir];
-                if (newRow < 0 || newRow >= Board.size || newColumn < 0 || newColumn >= Board.size) {
+                if (newRow < 0 || newRow >= this.size || newColumn < 0 || newColumn >= this.size) {
                     continue;
                 }
                 identicalNeightbor |= (this.cells[row][column].value === this.cells[newRow][newColumn].value);
