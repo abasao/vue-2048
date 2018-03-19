@@ -1,0 +1,67 @@
+$board-size: 8;
+$last-index: $board-size - 1;
+$board-ratio: 4 / $board-size;
+$tile-length: 110px * $board-ratio;
+
+@for $row from 0 through $last-index {
+  @for $column from 0 through $last-index {
+    .position_#{$row}_#{$column}:not(.isMoving) {
+      top: $tile-length * $row + 5px;
+      left: $tile-length * $column + 5px;
+    }
+  }
+}
+
+@for $fromRow from 0 through $last-index {
+  @for $toRow from 0 through $last-index {
+    $name: row_from_#{$fromRow}_to_#{$toRow};
+
+    @if $fromRow == $toRow {
+      .#{$name} {
+        top: $tile-length * $toRow + 5px;
+      }
+    } @else {
+      .#{$name} {
+        animation-duration: 0.20s;
+        animation-name: $name;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes #{$name} {
+        from {
+          top: $tile-length * $fromRow + 5px;
+        }
+        to {
+          top: $tile-length * $toRow + 5px;
+        }
+      }
+    }
+  }
+}
+
+@for $fromColumn from 0 through $last-index {
+  @for $toColumn from 0 through $last-index {
+    $name: column_from_#{$fromColumn}_to_#{$toColumn};
+
+    @if $fromColumn == $toColumn {
+      .#{$name} {
+        left: $tile-length * $toColumn + 5px;
+      }
+    } @else {
+      .#{$name} {
+        animation-duration: 0.20s;
+        animation-name: $name;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes #{$name} {
+        from {
+          left: $tile-length * $fromColumn + 5px;
+        }
+        to {
+          left: $tile-length * $toColumn + 5px;
+        }
+      }
+    }
+  }
+}
